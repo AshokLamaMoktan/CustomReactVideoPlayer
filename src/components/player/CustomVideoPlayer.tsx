@@ -14,7 +14,7 @@ interface videoPlayerProps {
     onEnded?: Function,
 }
 
-const VideoPlayer = (
+const CustomVideoPlayer = (
     {
         videoURL,
         width,
@@ -24,7 +24,7 @@ const VideoPlayer = (
         onPause,
         onPlay,
         onTimeUpdate,
-        onEnded
+        onEnded,
     }: videoPlayerProps
 ) => {
     const videoPlayerRef = useRef(null)
@@ -69,4 +69,4 @@ const VideoPlayer = (
     );
 }
 
-export default VideoPlayer;
+export default CustomVideoPlayer;

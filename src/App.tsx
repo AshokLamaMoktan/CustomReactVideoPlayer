@@ -1,4 +1,4 @@
-import VideoPlayer from "./components/player/VideoPlayer"
+import CustomVideoPlayer from "./components/player/CustomVideoPlayer"
 import './App.css'
 
 // test videos
@@ -11,14 +11,9 @@ function App() {
   console.log(playerRef);
   
   return (
-    <VideoPlayer
+    <CustomVideoPlayer
       videoURL={Video1}
       controls
-      // onReady={() => setIsVideoReady(true)}
-      // onPause={() => console.log('Paused')}
-      // onPlay={() => console.log('Play')}
-      // onTimeUpdate = {() => console.log("Time Updated")}
-      // onEnded = {() => console.log("Video Ended")}
     />
   )
 }
