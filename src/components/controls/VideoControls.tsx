@@ -6,6 +6,7 @@ import {
     ControlBackground,
     ControlWrapper,
     ForwardBackwardButton,
+    PipToggleButton,
     PlayBackButton,
     PlayPauseButton,
     ProgressBar,
@@ -15,6 +16,10 @@ import {
 interface videoControlProps {
     videoPlayerRef: RefObject<HTMLVideoElement>,
     videoContainerRef: RefObject<HTMLVideoElement>,
+    onPause?: Function,
+    onPlay?: Function,
+    onTimeUpdate?: Function,
+    onEnded?: Function,
 }
 
 interface videoTimeFormat {
@@ -37,11 +42,16 @@ const availablePlaybackRate = [
 const VideoControl = ({
     videoPlayerRef,
     videoContainerRef,
+    onPause,
+    onPlay,
+    onTimeUpdate,
+    onEnded
 }: videoControlProps) => {
     const [videoPlayer, setVideoPlayer] = useState<HTMLVideoElement | null>(null)
     const [isVideoEnded, setIsVideoEnded] = useState<Boolean>(false)
     const [isPlaying, setIsPlaying] = useState<Boolean>(false)
     const [isFullScreen, setIsFullScreen] = useState<Boolean>(false)
+    const [isPipMode, setIsPipMode] = useState<Boolean>(false)
     const [videoDuration, setVideoDuration] = useState<number>(0)
     const [videoVolume, setVideoVolume] = useState<number>(100)
     const [mousePositionInPercent, setMousePositionInPercent] = useState<number>(0)
@@ -79,6 +89,7 @@ const VideoControl = ({
         if (!videoPlayer) return
         const updateCurrentTime = () => {
             setResolvedCurrentDuration(CalculateDuration(videoPlayer.currentTime));
+            onTimeUpdate && onTimeUpdate()
         };
 
         videoPlayer.addEventListener("ended", HandleEnded)
@@ -94,13 +105,14 @@ const VideoControl = ({
     const HandlePlayPause = () => {
         videoPlayer && (
             videoPlayer.paused ?
-                (videoPlayer.play(), setIsPlaying(true)) :
-                (videoPlayer.pause(), setIsPlaying(false))
+                (videoPlayer.play(), setIsPlaying(true), onPlay && onPlay()) :
+                (videoPlayer.pause(), setIsPlaying(false), onPause && onPause())
         )
     }
 
     const HandleEnded = () => {
         setIsVideoEnded(true)
+        onEnded && onEnded()
     }
 
     const HandleReplay = () => {
@@ -198,6 +210,13 @@ const VideoControl = ({
         if (!videoPlayer) return
         videoPlayer.volume = volume / 100
         setVideoVolume(volume)
+    }
+
+    const HandleTogglePipMode = () => {
+        if (!videoPlayer) return
+        (document.pictureInPictureElement === videoPlayer) ?
+            (document.exitPictureInPicture(), setIsPipMode(false)) :
+            (videoPlayer.requestPictureInPicture(), setIsPipMode(true))
     }
 
     return (
@@ -307,6 +326,14 @@ const VideoControl = ({
                                     ))
                                 }
                             </PlayBackButton>
+
+                            <PipToggleButton onClick={HandleTogglePipMode}>
+                                {
+                                    isPipMode ?
+                                        <Icon icon="solar:quit-pip-broken" /> :
+                                        <Icon icon="solar:to-pip-broken" />
+                                }
+                            </PipToggleButton>
 
                             <button
                                 className="fullScreenbuton"

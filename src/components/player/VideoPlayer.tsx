@@ -7,6 +7,11 @@ interface videoPlayerProps {
     width?: string,
     height?: string,
     controls?: Boolean,
+    onReady?: Function,
+    onPause?: Function,
+    onPlay?: Function,
+    onTimeUpdate?: Function,
+    onEnded?: Function,
 }
 
 const VideoPlayer = (
@@ -15,6 +20,11 @@ const VideoPlayer = (
         width,
         height,
         controls,
+        onReady,
+        onPause,
+        onPlay,
+        onTimeUpdate,
+        onEnded
     }: videoPlayerProps
 ) => {
     const videoPlayerRef = useRef(null)
@@ -23,6 +33,7 @@ const VideoPlayer = (
 
     const HandleIsReady = () => {
         setIsVideoReady(true)
+        onReady && onReady()
     }
 
     return (
@@ -48,6 +59,10 @@ const VideoPlayer = (
                 <VideoControl
                     videoPlayerRef={videoPlayerRef}
                     videoContainerRef={videoContainerRef}
+                    onPause={onPause}
+                    onPlay={onPlay}
+                    onTimeUpdate={onTimeUpdate}
+                    onEnded={onEnded}
                 />
             }
         </PlayerContainer>

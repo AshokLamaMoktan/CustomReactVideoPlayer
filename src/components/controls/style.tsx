@@ -147,7 +147,7 @@ const ProgressBar = styled.div`
 const BottomControlWrapper = styled.div`
     display: grid;
     align-items: center;
-    grid-template-columns: 5.5rem auto 2.5rem 2.5rem;
+    grid-template-columns: 5.5rem auto 2.5rem 2.5rem 2.5rem;
 
     .fullScreenbuton{
         background-color: transparent;
@@ -268,6 +268,15 @@ const VolumeButtonWrapper = styled.div`
     }
 `
 
+const PipToggleButton = styled.button`
+    background: transparent;
+    border: none;
+    display: flex;
+    font-size: 1.3rem;
+    color: white;
+    cursor: pointer;
+`
+
 export {
     ControlWrapper,
     ControlBackground,
@@ -276,5 +285,6 @@ export {
     BottomControlWrapper,
     ForwardBackwardButton,
     PlayBackButton,
-    VolumeButtonWrapper
+    VolumeButtonWrapper,
+    PipToggleButton
 }
