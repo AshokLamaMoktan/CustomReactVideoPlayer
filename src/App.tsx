@@ -1,4 +1,3 @@
-import React from "react"
 import CustomVideoPlayer from "./components/player/CustomVideoPlayer"
 import './App.css'
 

@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "allowJs": true,
+    "outDir": "./dist/js",
+    "target": "es5",
+    "moduleResolution": "node",
+    "module": "es2015",
+    "lib": [
+      "es2015",
+      "es2016",
+      "DOM"
+    ],
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
