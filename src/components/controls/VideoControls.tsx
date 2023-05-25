@@ -315,7 +315,7 @@ const VideoControl = ({
 
                             <PlayBackButton
                                 defaultValue={1}
-                                onChange={(e) =>
+                                onChange={(e: any) =>
                                 (
                                     HandlePlayBackRate(parseFloat(e.target.value))
                                 )}
